@@ -13,23 +13,20 @@
 		private var _url:String;
 		private var _player:Object;
 		
-		public function Youtube()
+		public function Youtube(url:String)
 		{
-			super();			
+			super();
 			security();
-		}
-		
-		public function set url(value:String):void
-		{
-			_url = value;
+			
+			_url = url;
+			
 			start();
-		}
+		}		
 		
 		public function get player():Object
 		{
 			return _player;
-		}	
-		
+		}			
 		
 		private function start():void
 		{
@@ -40,6 +37,7 @@
 		
 		private function playerCarregado(e:Event): void
 		{		
+			trace('Player carregado');
 			this.content.addEventListener("onReady", onPlayerReady);
     		this.content.addEventListener("onStateChange", onPlayerStateChange);
 			this.content.addEventListener("onPlaybackQualityChange", onPlayerQualityChange);
@@ -51,7 +49,7 @@
 			trace('Erro ao carregar player :' + e);
 		}
 			
-		
+
 		private function onPlayerReady(e:Event): void
 		{			
 			_player = this.content;	
@@ -64,17 +62,61 @@
 		
 		private function onPlayerStateChange(e:Event): void
 		{
-			trace(e);
+			var evt:YoutubeEvent = new YoutubeEvent(YoutubeEvent.STATE_CHANGE);
+			var n:Number = Object(e).data;
+			
+			switch(n)
+			{
+				case -1:
+					evt.change = 'Não Iniciado';
+					break;
+				case 0:
+					evt.change = 'Encerrado';
+					break;
+				case 1:
+					evt.change = 'Em Reprodução';
+					break;
+				case 2:
+					evt.change = 'Pausado';
+					break;
+				case 3:
+					evt.change = 'Em Buffer';
+					break;
+				case 5:
+					evt.change = 'Vídeo Indicado';
+					break;
+			}
+			
+			dispatchEvent(evt);
 		}
 		
 		private function onPlayerQualityChange(e:Event): void
 		{
-			trace(e);
+			var evt:YoutubeEvent = new YoutubeEvent(YoutubeEvent.QUALITY_CHANGE);
+			evt.quality = Object(e).data;
+			
+			dispatchEvent(evt);
 		}
 		
 		private function onPlayerError(e:Event): void
 		{
-			trace(e);
+			var evt:YoutubeEvent = new YoutubeEvent(YoutubeEvent.ERROR);
+			var n:Number = Object(e).data;
+			
+			switch(n)
+			{
+				case 100:
+					evt.error = 'Video não encontrado, removido ou privado';
+					break;
+				case 101:
+					evt.error = 'Video não pode ser reproduzido em players incorporados';
+					break;
+				case 150:
+					evt.error = 'Video não pode ser reproduzido em players incorporados';
+					break;
+			}
+			
+			dispatchEvent(evt);
 		}
 		
 		private function security():void
