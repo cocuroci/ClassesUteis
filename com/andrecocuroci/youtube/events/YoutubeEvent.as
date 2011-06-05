@@ -6,7 +6,7 @@
 		
 		public static const LOAD_PLAYER:String = "YoutubeLoadPlayer";
 		
-		public function YoutubeEvent(type:String, bubbles:Boolean = true, cancelable:Boolean = false)
+		public function YoutubeEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false)
 		{
 			super(type, bubbles, cancelable);
 		}

@@ -16,7 +16,7 @@
 		public function Youtube()
 		{
 			super();			
-			security();		
+			security();
 		}
 		
 		public function set url(value:String):void
@@ -25,6 +25,12 @@
 			start();
 		}
 		
+		public function get player():Object
+		{
+			return _player;
+		}	
+		
+		
 		private function start():void
 		{
 			this.contentLoaderInfo.addEventListener(Event.COMPLETE, playerCarregado);
@@ -32,44 +38,43 @@
 			this.load(new URLRequest(_url));
 		}
 		
-/*		public function tamanhoPlayer(w:Number, h:Number):void
-		{
-			_width = w;
-			_height = h;
-			
-			_player.setSize(_width,_height)
-		}
-		
 		private function playerCarregado(e:Event): void
 		{		
 			this.content.addEventListener("onReady", onPlayerReady);
     		this.content.addEventListener("onStateChange", onPlayerStateChange);
+			this.content.addEventListener("onPlaybackQualityChange", onPlayerQualityChange);
+			this.content.addEventListener("onError", onPlayerError);
 		}
 		
 		private function playerError(e:IOErrorEvent): void
 		{		
-			trace(e);
+			trace('Erro ao carregar player :' + e);
 		}
+			
 		
 		private function onPlayerReady(e:Event): void
-		{		
-			_player = this.content;
-			
-			if(!_autoPlay) {
-				_player.cueVideoById(_videoId, _startSeconds, _suggestedQuality);	
-			} else {
-				_player.loadVideoById(_videoId, _startSeconds, _suggestedQuality);	
-			}
+		{			
+			_player = this.content;	
 			
 			var evt:YoutubeEvent = new YoutubeEvent(YoutubeEvent.LOAD_PLAYER);
 			dispatchEvent(evt);		
 			
-			this.content.removeEventListener("onReady", onPlayerReady);
-		}*/
+			_player.removeEventListener("onReady", onPlayerReady);
+		}
 		
 		private function onPlayerStateChange(e:Event): void
 		{
-			
+			trace(e);
+		}
+		
+		private function onPlayerQualityChange(e:Event): void
+		{
+			trace(e);
+		}
+		
+		private function onPlayerError(e:Event): void
+		{
+			trace(e);
 		}
 		
 		private function security():void
@@ -78,7 +83,7 @@
 			Security.allowDomain('http://youtube.com.br');
 			Security.allowDomain('http://www.youtube.com.br');
 			Security.allowDomain('http://s.ytimg.com');
-			Security.allowDomain("http://i3.ytimg.com/");
+			Security.allowDomain("http://i3.ytimg.com");
 		}
 	}	
 }
