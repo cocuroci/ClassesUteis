@@ -11,7 +11,7 @@
 	public class Youtube extends Loader {
 		
 		private var _url:String;
-		private var _player:Object;
+		protected var _player:Object;
 		
 		public function Youtube(url:String)
 		{
@@ -23,10 +23,14 @@
 			start();
 		}		
 		
-		public function get player():Object
+		protected function get player():Object
 		{
 			return _player;
-		}			
+		}		
+		
+		public function setSize(w:Number, h:Number):void {
+			_player.setSize(w,h)
+		}
 		
 		private function start():void
 		{
@@ -65,6 +69,8 @@
 			var evt:YoutubeEvent = new YoutubeEvent(YoutubeEvent.STATE_CHANGE);
 			var n:Number = Object(e).data;
 			
+			trace('State: ' + n);
+			
 			switch(n)
 			{
 				case -1:
@@ -102,6 +108,8 @@
 		{
 			var evt:YoutubeEvent = new YoutubeEvent(YoutubeEvent.ERROR);
 			var n:Number = Object(e).data;
+			
+			trace('Error: ' + n);
 			
 			switch(n)
 			{
