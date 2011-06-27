@@ -4,7 +4,7 @@
 	
 	public class YoutubeEvent extends Event {
 		
-		public static const LOAD_PLAYER:String = "YoutubeLoadPlayer";
+		public static const LOAD_PLAYER:String = "load_player";
 		public static const STATE_CHANGE:String = "YoutubeStateChange";
 		public static const QUALITY_CHANGE:String = "YoutubeQualityChange";
 		public static const ERROR:String = "YoutubeERROR";

@@ -8,6 +8,10 @@
 	import flash.net.URLRequest;
 	import flash.system.Security;
 	
+		
+	[Event(name="load_player", type="com.andrecocuroci.youtube.events.YoutubeEvent")]
+	[Event(name="YoutubeStateChange", type="com.andrecocuroci.youtube.events.YoutubeEvent")]
+	
 	public class Youtube extends Loader {
 		
 		private var _url:String;
