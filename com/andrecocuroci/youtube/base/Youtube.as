@@ -8,9 +8,13 @@
 	import flash.net.URLRequest;
 	import flash.system.Security;
 	
-		
+	/*
+	* Eventos da classe YoutubeEvent
+	*/
 	[Event(name="load_player", type="com.andrecocuroci.youtube.events.YoutubeEvent")]
-	[Event(name="YoutubeStateChange", type="com.andrecocuroci.youtube.events.YoutubeEvent")]
+	[Event(name="state_change", type="com.andrecocuroci.youtube.events.YoutubeEvent")]
+	[Event(name="quality_change", type="com.andrecocuroci.youtube.events.YoutubeEvent")]
+	[Event(name="error", type="com.andrecocuroci.youtube.events.YoutubeEvent")]	
 	
 	public class Youtube extends Loader {
 		
