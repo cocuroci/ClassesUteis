@@ -27,7 +27,7 @@
 		/*
 		* MÉTODO QUE DEFINE O TAMANHO DO PLAYER
 		*/
-		public function $setSize(w:Number, h:Number):void
+		public function setSize(w:Number, h:Number):void
 		{
 			_player.setSize(w,h)
 		}
